@@ -1,0 +1,45 @@
+.thumbnail img {
+  width: 100%;
+}
+.thumbnail {
+  padding: 0;
+}
+.caption-full {
+  padding: 9px;
+}
+.form-inline a {
+  color: rgb(255, 115, 0);
+}
+.vl {
+  border-left: 2px solid rgb(49, 44, 44);
+  height: 4em;
+  margin-top: 0.5em;
+}
+.head {
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+.sec-nav {
+  justify-content: space-around;
+}
+.sec-nav a {
+  color: rgb(0, 0, 0);
+}
+.fm {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+.body {
+  background-color: linear-gradient(red, yellow);
+}
+
+/* Chrome, Safari, Edge */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
