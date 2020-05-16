@@ -1,5 +1,25 @@
 <%- include('partials/header'); %>
 
-<h1>This is going to be the user dashboard.</h1>
+<h1 class="text-center mb-5">MY Reports</h1>
+
+<div class="row text-center justify-content-center" style="display: flex; flex-wrap: wrap;">
+  <% datas.forEach(function(data){ %>
+
+    <div class="card col-5 mb-5 mr-5 ml-5" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Name: <%= data.name %></h5>
+        <p class="card-text">Details: <%= data.details %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Complaint Date: <%= data.curr_date %></li>
+        <li class="list-group-item">Crime Date: <%= data.date %></li>
+      </ul>
+      <div class="card-body">
+        <a href="/view" class="btn btn-primary btn-block">View/Download Complaint</a>
+      </div>
+    </div>
+    <br>
+  <% }); %>
+</div>
 
 <%- include('partials/footer'); %>

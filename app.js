@@ -1,11 +1,10 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
-const path = require('path');
+const path = require("path");
 var crypto = require("crypto");
 var mongoose = require("mongoose");
 var multer = require("multer");
-var fs = require("fs");
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 var Forum = require("./models/forum");
@@ -36,9 +35,8 @@ conn.on("error", (err) => {
   console.error("Connection Error:", err);
 });
 
-
 // Storage Engine
-var filen;
+var filen, objid;
 const storage = new GridFsStorage({
   url: mongoURI,
   file: (req, file) => {
@@ -58,7 +56,7 @@ const storage = new GridFsStorage({
     });
   },
 });
-var upload = multer({ storage:storage }).single('application[file]');
+var upload = multer({ storage: storage }).single("application[file]");
 
 // ROUTES
 app.get("/", function (req, res) {
@@ -67,7 +65,17 @@ app.get("/", function (req, res) {
 
 // INDEX
 app.get("/my", function (req, res) {
-  res.render("my");
+  Forum.find({}, function (err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("my", { datas: data });
+    }
+  });
+});
+
+app.get("/otp", function (req, res) {
+  res.render("otp");
 });
 
 // NEW
@@ -81,45 +89,71 @@ app.get("/upload", function (req, res) {
 
 //CREATE
 
-app.post('/my',function(req,res){
-  upload(req,res,function(err) {
-      if(err) {
-          res.send(err);
+app.post("/my", function (req, res) {
+  upload(req, res, function (err) {
+    if (err) {
+      res.send(err);
+    }
+    console.log(filen);
+    req.body.application.file = filen;
+    Forum.create(req.body.application, function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        objid = data._id;
+        res.redirect("/otp");
       }
-      console.log(filen);
-      req.body.application.file=filen;
-      Forum.create(req.body.application, function (err, camp) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.redirect("/my");
-        }
-      });
+    });
   });
-
 });
+
+app.post("/otp", function (req, res) {
+  var pass = req.body.pass;
+  if (pass === "12345678") {
+    res.redirect("/success");
+  } else {
+    res.redirect("/fail");
+  }
+});
+
 // app.post("/my", upload.single("file"), function (req, res) {
 
-  // Forum.create(req.body.application, function (err, camp) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     res.redirect("/");
-  //   }
-  // });
+// Forum.create(req.body.application, function (err, camp) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     res.redirect("/");
+//   }
 // });
-
+// });
 
 //SHOW
 app.get("/status", function (req, res) {
   res.render("status");
 });
 
+app.get("/success", function (req, res) {
+  res.render("success");
+});
 
+app.get("/fail", function (req, res) {
+  var myquery = { _id: objid };
+  conn.collection("forums").deleteOne(myquery, function (err, obj) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  res.render("fail");
+});
+
+app.get("/view", function (req, res) {
+  res.render("view");
+});
 
 //Extras
 app.get("/about", function (req, res) {
-  res.render("about");
+  const file = `${__dirname}/uploads/d.txt`;
+  res.download(file);
 });
 
 app.get("/contact", function (req, res) {
