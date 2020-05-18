@@ -1,0 +1,44 @@
+<%- include('partials/header'); %>
+
+<br />
+<div class="container">
+  <a href="/" class="btn btn-primary"><< HOME PAGE!</a>
+  <a href="/" class="btn btn-primary"><< GO BACK!</a>
+</div>
+
+<h1 class="text-center mb-5">MY Reports</h1>
+
+<div class="container">
+  <% datas.forEach(function(data){ %> <%
+  if(data.date.toISOString().slice(0,10) >= from &&
+  data.date.toISOString().slice(0,10) <= to){ %>
+  <div class="list-group list-group-horizontal-sm row">
+    <div class="list-group-item col-sm"><%= data.fileno %></div>
+    <div class="list-group-item col-sm"><%= data.name %></div>
+    <div class="list-group-item col-sm">
+      <%= data.date.toISOString().slice(0,10) %>
+    </div>
+    <div class="list-group-item col-sm" style="text-align: center;">
+      <% if(data.success === true){ %>
+      <h3>
+        <span class="badge badge-success">Verified</span>
+      </h3>
+      <% }else{ %>
+      <h3><span class="badge badge-warning">Pending</span></h3>
+      <% } %>
+    </div>
+    <div class="list-group-item col-sm">
+      <a
+        href="/view/<%= data._id %>"
+        class="btn btn-primary btn-block"
+        target="_blank"
+        >View/Download</a
+      >
+    </div>
+    <br />
+  </div>
+  <br />
+  <% } %> <% }); %>
+</div>
+
+<%- include('partials/footer'); %> <%- include('partials/footer'); %>

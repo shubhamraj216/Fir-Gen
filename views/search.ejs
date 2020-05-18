@@ -1,0 +1,39 @@
+<%- include('partials/header'); %>
+
+<div class="container">
+  <a href="/" class="btn btn-primary"><< HOME PAGE!</a>
+</div>
+
+<div class="container" style="width: 20%; margin: 30px auto;">
+  <h1>Search FIR's Between Dates</h1>
+  <br />
+  <form action="/search" method="POST">
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="fromdate">From Date</label>
+        <input
+          type="date"
+          class="form-control mb-2 mr-sm-2"
+          id="fromdate"
+          name="date[from]"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="todate">To Date</label>
+        <input
+          type="date"
+          class="form-control mb-2 mr-sm-2"
+          id="todate"
+          name="date[to]"
+        />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+  </form>
+</div>
+
+<%- include('partials/footer'); %>

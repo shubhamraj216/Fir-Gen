@@ -1,34 +1,60 @@
 <%- include('partials/header'); %>
 
-
-<br>
-<!-- <div class="container">
-  <a href="/" class="btn btn-primary"><< Go Back!</a>
-</div> -->
+<br />
+<div class="container">
+  <a href="/" class="btn btn-primary"><< HOME PAGE!</a>
+</div>
 
 <div class="container">
   <h1 style="text-align: center;">APPLICATION FORM</h1>
   <br />
-  <form class="ml-3 mr-3" action="/my" enctype="multipart/form-data" method="POST">
+  <p name="appliation[fileno]"></p>
+  <p name="appliation[success]"></p>
+  <form
+    class="ml-3 mr-3"
+    action="/my"
+    enctype="multipart/form-data"
+    method="POST"
+  >
     <p>Date/Time: <span id="datetime"></span></p>
     <div class="form-row">
       <div class="form-group col-md-12">
         <label for="name">Full Name</label>
-        <input type="text" class="form-control" name="application[name]" id="name"  />
+        <input
+          type="text"
+          class="form-control"
+          name="application[name]"
+          id="name"
+        />
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="email">Email</label>
-        <input type="email" class="form-control" name="application[email]" id="email"  />
+        <input
+          type="email"
+          class="form-control"
+          name="application[email]"
+          id="email"
+        />
       </div>
       <div class="form-group col-md-4">
         <label for="mobile">Mobile No.</label>
-        <input type="number" class="form-control" name="application[mobile]" id="mobile"  />
+        <input
+          type="number"
+          class="form-control"
+          name="application[mobile]"
+          id="mobile"
+        />
       </div>
       <div class="col-md-4">
         <label for="aadhar">Aadhar No.</label>
-        <input type="number" class="form-control" name="application[aadhar]" id="aadhar"  />
+        <input
+          type="number"
+          class="form-control"
+          name="application[aadhar]"
+          id="aadhar"
+        />
       </div>
     </div>
     <div class="form-group">
@@ -36,34 +62,59 @@
       <textarea
         type="text"
         class="form-control"
-        name="application[address]" id="address"
+        name="application[address]"
+        id="address"
         rows="4"
-        
       ></textarea>
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="city">City</label>
-        <input type="text" class="form-control" name="application[city]" id="city"  />
+        <label for="district">District</label>
+        <input
+          type="text"
+          class="form-control"
+          name="application[district]"
+          id="district"
+        />
       </div>
       <div class="form-group col-md-4">
         <label for="state">State</label>
-        <input type="text" class="form-control" name="application[state]" id="state"  />
+        <input
+          type="text"
+          class="form-control"
+          name="application[state]"
+          id="state"
+        />
       </div>
       <div class="form-group col-md-2">
         <label for="pin">Pin Code</label>
-        <input type="number" class="form-control" name="application[pin]" id="pin"  />
+        <input
+          type="number"
+          class="form-control"
+          name="application[pin]"
+          id="pin"
+        />
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="crime">Type Of Crime</label>
-        <input type="text" class="form-control" name="application[type]" id="crime"  />
+        <input
+          type="text"
+          class="form-control"
+          name="application[type]"
+          id="crime"
+        />
       </div>
       <div class="form-group col-md-6">
         <label for="date_incident">Date & Time of Incident</label>
-        <input type="datetime-local" class="form-control" name="application[date]" id="date_incident"  />
+        <input
+          type="datetime-local"
+          class="form-control"
+          name="application[date]"
+          id="date_incident"
+        />
       </div>
     </div>
 
@@ -73,20 +124,21 @@
         <textarea
           type="text"
           class="form-control"
-          name="application[details]" id="details"
+          name="application[details]"
+          id="details"
           rows="5"
-          
         ></textarea>
       </div>
     </div>
-    <br>
+    <br />
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="suspect">Suspects</label>
         <textarea
           type="text"
           class="form-control"
-          name="application[suspect]" id="suspect"
+          name="application[suspect]"
+          id="suspect"
           rows="2"
         ></textarea>
       </div>
@@ -95,7 +147,8 @@
         <textarea
           type="text"
           class="form-control"
-          name="application[witness]" id="witness"
+          name="application[witness]"
+          id="witness"
           rows="2"
         ></textarea>
       </div>
@@ -104,7 +157,12 @@
     <!-- <label class="custom-file-label" for="file">Upload Your Signature:</label>    -->
     <!-- <input type="file" name="application[file]" class="custom-file-input" id="fisle"/> <br>  -->
     <div class="custom-file mb-3 m-auto">
-      <input type="file" name="application[file]" id="file" class="custom-file-input" />
+      <input
+        type="file"
+        name="application[file]"
+        id="file"
+        class="custom-file-input"
+      />
       <label for="file" class="custom-file-label">Upload Your Signature</label>
     </div>
 
@@ -117,7 +175,7 @@
         </label>
       </div>
     </div>
-    
+
     <button
       type="submit"
       class="btn btn-primary"

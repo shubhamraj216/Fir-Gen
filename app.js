@@ -9,6 +9,9 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 var Forum = require("./models/forum");
 
+// Switch
+var prev = false;
+
 // MiddleWare
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,8 +20,8 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 // Mongo Setup
-// mongoose.connect("mongodb+srv://vegito123:vegito123@mcluster-kttiw.mongodb.net/yelpcamp?retryWrites=true&w=majority",{useNewUrlParser:true});
-const mongoURI = "mongodb://127.0.0.1:27017/zero";
+const mongoURI =
+  "mongodb+srv://testuser:testuser@mcluster-kttiw.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const conn = mongoose.connection;
@@ -88,14 +91,17 @@ app.get("/upload", function (req, res) {
 });
 
 //CREATE
-
+var appno;
 app.post("/my", function (req, res) {
   upload(req, res, function (err) {
     if (err) {
       res.send(err);
     }
-    console.log(filen);
+    appno = Math.floor(100000 + Math.random() * 900000);
     req.body.application.file = filen;
+    req.body.application.fileno = appno;
+    req.body.application.success = prev;
+
     Forum.create(req.body.application, function (err, data) {
       if (err) {
         console.log(err);
@@ -110,78 +116,78 @@ app.post("/my", function (req, res) {
 app.post("/otp", function (req, res) {
   var pass = req.body.pass;
   if (pass === "12345678") {
-    res.redirect("/success");
+    prev = !prev;
+    res.render("success", { appno: appno });
   } else {
-    res.redirect("/fail");
+    var myquery = { _id: objid };
+    conn.collection("forums").deleteOne(myquery, function (err, obj) {
+      if (err) {
+        console.log(err);
+      }
+    });
+    res.render("fail");
   }
 });
 
-// app.post("/my", upload.single("file"), function (req, res) {
-
-// Forum.create(req.body.application, function (err, camp) {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     res.redirect("/");
-//   }
-// });
-// });
-
-//SHOW
-app.get("/status", function (req, res) {
-  res.render("status");
-});
-
-app.get("/success", function (req, res) {
-  res.render("success");
-});
-
-app.get("/fail", function (req, res) {
-  var myquery = { _id: objid };
-  conn.collection("forums").deleteOne(myquery, function (err, obj) {
+app.post("/search", function (req, res) {
+  var from = req.body.date.from;
+  var to = req.body.date.to;
+  Forum.find({}, function (err, data) {
     if (err) {
       console.log(err);
+    } else {
+      res.render("showfir", { datas: data, from: from, to: to });
     }
   });
-  res.render("fail");
 });
 
-app.get("/view", function (req, res) {
-  res.render("view");
+//SHOW
+app.get("/search", function (req, res) {
+  res.render("search");
 });
 
-//Extras
-app.get("/about", function (req, res) {
-  const file = `${__dirname}/uploads/d.txt`;
-  res.download(file);
+app.get("/view/:id", function (req, res) {
+  //console.log(req.params.id);
+  Forum.findById(req.params.id, function (err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(data);
+      // picview = data.file;
+
+      res.render("view", { data: data });
+    }
+  });
 });
 
-app.get("/contact", function (req, res) {
-  res.render("contact");
+app.get("/image/:filename", (req, res) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    // Check if file
+    if (!file || file.length === 0) {
+      console.log("d");
+    }
+    // Check if image
+    if (file.contentType === "image/jpeg" || file.contentType === "image/png") {
+      // Read output to browser
+
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(404).json({
+        err: "Not an image",
+      });
+    }
+  });
 });
 
-app.get("/faq", function (req, res) {
-  res.render("faq");
-});
-
-app.get("/help", function (req, res) {
-  res.render("help");
+app.get("/cancel", function (req, res) {
+  res.render("cancel");
 });
 
 //Wrong Route
 app.get("*", function (req, res) {
   res.send("Trying to go somewhere else??");
 });
-
-// app.post("/my", function (req, res) {
-//   Complaint.create(req.body.application, function (err, comp) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.redirect("/my");
-//     }
-//   });
-// });
 
 const port = 3000;
 

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VIEW/ DOWNLOAD</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+    <script type="text/javascript" src="/stylesheets/demo.js"></script>
+  </head>
+  <body>
+    <br />
+    <div class="container">
+      <a href="/my" class="btn btn-primary"><< HOME!</a>
+      <a href="/my" class="btn btn-primary"><< DASHBOARD!</a>
+    </div>
+
+    <div class="container">
+      <h1 style="text-align: center;">FIRST INFORMATION REPORT</h1>
+      <br />
+      <p>Date/Time: <span> <%= data.curr_date %>  </span></p>
+      <h4>FILE No: <span class="badge badge-secondary"><%= data.fileno %></span></h4>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            disabled
+            placeholder= "<%= data.name %>"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            disabled
+            placeholder= "<%= data.email %>"
+          />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="mobile">Mobile No.</label>
+          <input
+            type="number"
+            class="form-control"
+            id="mobile"
+            disabled
+            placeholder= "<%= data.mobile %>"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="aadhar">Aadhar No.</label>
+          <input
+            type="number"
+            class="form-control"
+            id="aadhar"
+            disabled
+            placeholder= "<%= data.aadhar %>"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea
+          type="text"
+          class="form-control"
+          id="address"
+          rows="4"
+          disabled
+          placeholder= "<%= data.address %>"
+        ></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="district">District</label>
+          <input
+            type="text"
+            class="form-control"
+            id="district"
+            disabled
+            placeholder= "<%= data.district %>"
+          />
+        </div>
+        <div class="form-group col-md-4">
+          <label for="state">State</label>
+          <input
+            type="text"
+            class="form-control"
+            id="state"
+            disabled
+            placeholder= "<%= data.state %>"
+          />
+        </div>
+        <div class="form-group col-md-2">
+          <label for="pin">Pin Code</label>
+          <input
+            type="number"
+            class="form-control"
+            id="pin"
+            disabled
+            placeholder= "<%= data.pin %>"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="crime">Type Of Crime</label>
+          <input
+            type="text"
+            class="form-control"
+            id="crime"
+            disabled
+            placeholder= "<%= data.type %>"
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="date_incident">Date & Time of Incident</label>
+          <input
+            type="text"
+            class="form-control"
+            id="date_incident"
+            disabled
+            placeholder= "<%= data.date %>"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <label for="details">Details Of Incidence</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="details"
+            rows="5"
+            disabled
+            placeholder= "<%= data.details %>"
+          ></textarea>
+        </div>
+      </div>
+      <br />
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="suspect">Suspects</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="suspect"
+            rows="5"
+            disabled
+            placeholder= "<%= data.suspect %>"
+          ></textarea>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="witness">Witness</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="witness"
+            rows="5"
+            disabled
+            placeholder= "<%= data.witness %>"
+          ></textarea>
+        </div>
+      </div>
+      <div class="card card-body mb-3" style="width:18em; display: flex; flex-direction: row;">
+        <p>Signature: &nbsp; &nbsp; </p>
+        <img src="/image/<%= data.file %>"  style="width: 10rem; height: 5em;">
+      </div>
+      <% if(data.success === true){ %>
+        <h3 style="text-align: center;"><span class="badge badge-info" >Digitally Verified by SHO, <%= data.district %> </span></h3>
+      <% }else{ %>
+        <h3 style="text-align: center;"><span class="badge badge-info" >Pending</span></h3>
+      <% } %>
+      <a class="btn btn-primary btn-block mb-5"  href = "/view/<%= data._id %>" download>Download</a>
+      <!-- <button onclick="download()" class="btn btn-primary btn-block mb-5">Print</button> -->
+    <%- include('partials/footer'); %>
+  </body>
+</html>
