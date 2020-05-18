@@ -25,6 +25,7 @@
           class="form-control"
           name="application[name]"
           id="name"
+          required
         />
       </div>
     </div>
@@ -36,6 +37,7 @@
           class="form-control"
           name="application[email]"
           id="email"
+          required
         />
       </div>
       <div class="form-group col-md-4">
@@ -45,6 +47,7 @@
           class="form-control"
           name="application[mobile]"
           id="mobile"
+          required
         />
       </div>
       <div class="col-md-4">
@@ -54,6 +57,7 @@
           class="form-control"
           name="application[aadhar]"
           id="aadhar"
+          required
         />
       </div>
     </div>
@@ -65,6 +69,7 @@
         name="application[address]"
         id="address"
         rows="4"
+        required
       ></textarea>
     </div>
     <div class="form-row">
@@ -75,6 +80,7 @@
           class="form-control"
           name="application[district]"
           id="district"
+          required
         />
       </div>
       <div class="form-group col-md-4">
@@ -84,6 +90,7 @@
           class="form-control"
           name="application[state]"
           id="state"
+          required
         />
       </div>
       <div class="form-group col-md-2">
@@ -93,6 +100,7 @@
           class="form-control"
           name="application[pin]"
           id="pin"
+          required
         />
       </div>
     </div>
@@ -105,6 +113,7 @@
           class="form-control"
           name="application[type]"
           id="crime"
+          required
         />
       </div>
       <div class="form-group col-md-6">
@@ -114,6 +123,7 @@
           class="form-control"
           name="application[date]"
           id="date_incident"
+          required
         />
       </div>
     </div>
@@ -127,6 +137,7 @@
           name="application[details]"
           id="details"
           rows="5"
+          required
         ></textarea>
       </div>
     </div>
@@ -140,6 +151,7 @@
           name="application[suspect]"
           id="suspect"
           rows="2"
+          required
         ></textarea>
       </div>
       <div class="form-group col-md-6">
@@ -150,6 +162,7 @@
           name="application[witness]"
           id="witness"
           rows="2"
+          required
         ></textarea>
       </div>
     </div>
@@ -162,13 +175,14 @@
         name="application[file]"
         id="file"
         class="custom-file-input"
+        required
       />
       <label for="file" class="custom-file-label">Upload Your Signature</label>
     </div>
 
     <div class="form-group">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="check" />
+        <input class="form-check-input" type="checkbox" id="check" required />
         <label class="form-check-label" for="check">
           I agree that all the information provided above are true to the best
           of my knowledge.

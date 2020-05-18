@@ -3,7 +3,8 @@
 <div class="container mt-5" id="otp">
   <h3>
     A message has been sent to your registered mobile number. Type the code to
-    confirm your identity. Remember to fill it correctly else you will need to fill the form again. (Currently it is set to: 12345678)
+    confirm your identity. Remember to fill it correctly else you will need to
+    fill the form again. (Currently it is set to: 12345678)
   </h3>
   <form class="form-inline m-5" action="/otp" method="POST">
     <div class="form-group mx-sm-3 mb-2 justify-content-center">
@@ -13,7 +14,8 @@
         class="form-control"
         id="inputPassword2"
         placeholder="Password"
-        name ="pass"
+        name="pass"
+        required
       />
     </div>
     <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
