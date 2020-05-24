@@ -11,6 +11,7 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 var Forum = require("./models/forum");
 var User = require("./models/user");
+var flash = require("connect-flash");
 
 // Switch
 var prev = false;
@@ -32,11 +33,15 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use(flash());
+
 app.use(express.static(__dirname + "/public"));
 
 app.set("view engine", "ejs");
 
 app.use(function (req, res, next) {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
   res.locals.currentuser = req.user;
   next();
 });
@@ -102,7 +107,7 @@ app.get("/my", isLoggedIn, function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("my", { datas: data});
+      res.render("my", { datas: data });
     }
   });
 });
@@ -232,10 +237,11 @@ app.post("/register", function (req, res) {
     req.body.password,
     function (err, user) {
       if (err) {
-        res.render("loginregister");
-        console.log(err);
+        req.flash("error", err.message);
+        return res.redirect("/loginregister");
       } else {
         passport.authenticate("local")(req, res, function () {
+          req.flash("success", "sd");
           res.redirect("/");
         });
       }
@@ -254,8 +260,12 @@ app.post(
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/loginregister",
+    successFlash: "Successfully Logged in",
+    failureFlash: "Incorrect username or password",
   }),
-  function (req, res) {}
+  function (req, res) {
+    res.cookie("name", "oof");
+  }
 );
 
 //LOGOUT
