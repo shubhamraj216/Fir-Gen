@@ -29,8 +29,9 @@
   margin-top: 2em;
   margin-bottom: 2em;
 }
-.body {
-  background-color: linear-gradient(red, yellow);
+body {
+  background: #12f35db4;
+  font-family: sans-serif;
 }
 
 /* Chrome, Safari, Edge */

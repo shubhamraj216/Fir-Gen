@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 
 var forumSchema = new mongoose.Schema({
-  name: String,
   email: String,
   mobile: Number,
   aadhar: Number,
@@ -18,5 +17,10 @@ var forumSchema = new mongoose.Schema({
   file: String,
   fileno: String,
   success: Boolean,
+  name: {
+    id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user: String,
+  },
 });
+
 module.exports = mongoose.model("Forum", forumSchema);

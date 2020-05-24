@@ -14,7 +14,7 @@
   <body>
     <br />
     <div class="container">
-      <a href="/my" class="btn btn-primary"><< HOME!</a>
+      <a href="/" class="btn btn-primary"><< HOME!</a>
       <a href="/my" class="btn btn-primary"><< DASHBOARD!</a>
     </div>
 
@@ -31,7 +31,7 @@
             class="form-control"
             id="name"
             disabled
-            placeholder= "<%= data.name %>"
+            placeholder= "<%= data.name.user %>"
           />
         </div>
       </div>
@@ -181,8 +181,8 @@
       <% }else{ %>
         <h3 style="text-align: center;"><span class="badge badge-info" >Pending</span></h3>
       <% } %>
-      <a class="btn btn-primary btn-block mb-5"  href = "/view/<%= data._id %>" download>Download</a>
-      <!-- <button onclick="download()" class="btn btn-primary btn-block mb-5">Print</button> -->
+      <!-- <a class="btn btn-primary btn-block mb-5"  href = "/view/<%= data._id %>" target="_blank" download>Download</a> -->
+      <button onclick="download()" class="btn btn-primary btn-block mb-5">Print</button>
     <%- include('partials/footer'); %>
   </body>
 </html>

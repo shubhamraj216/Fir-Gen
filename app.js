@@ -4,10 +4,13 @@ var bodyParser = require("body-parser");
 const path = require("path");
 var crypto = require("crypto");
 var mongoose = require("mongoose");
+var passport = require("passport");
+var localStrategy = require("passport-local");
 var multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 var Forum = require("./models/forum");
+var User = require("./models/user");
 
 // Switch
 var prev = false;
@@ -15,9 +18,28 @@ var prev = false;
 // MiddleWare
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(
+  require("express-session")({
+    secret: "hasher",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use(express.static(__dirname + "/public"));
 
 app.set("view engine", "ejs");
+
+app.use(function (req, res, next) {
+  res.locals.currentuser = req.user;
+  next();
+});
 
 // Mongo Setup
 const mongoURI =
@@ -62,31 +84,39 @@ const storage = new GridFsStorage({
 var upload = multer({ storage: storage }).single("application[file]");
 
 // ROUTES
-app.get("/", function (req, res) {
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/loginregister");
+}
+
+app.get("/", isLoggedIn, function (req, res) {
   res.render("landing");
 });
 
 // INDEX
-app.get("/my", function (req, res) {
+app.get("/my", isLoggedIn, function (req, res) {
   Forum.find({}, function (err, data) {
     if (err) {
       console.log(err);
     } else {
-      res.render("my", { datas: data });
+      res.render("my", { datas: data});
     }
   });
 });
 
-app.get("/otp", function (req, res) {
+app.get("/otp", isLoggedIn, function (req, res) {
   res.render("otp");
 });
 
 // NEW
-app.get("/apply", function (req, res) {
+app.get("/apply", isLoggedIn, function (req, res) {
   res.render("apply");
 });
 
-app.get("/upload", function (req, res) {
+app.get("/upload", isLoggedIn, function (req, res) {
   res.render("upload");
 });
 
@@ -101,8 +131,14 @@ app.post("/my", function (req, res) {
     req.body.application.file = filen;
     req.body.application.fileno = appno;
     req.body.application.success = prev;
-
-    Forum.create(req.body.application, function (err, data) {
+    var helper = {
+      ...req.body.application,
+      name: {
+        id: req.user._id,
+        user: req.body.application.name,
+      },
+    };
+    Forum.create(helper, function (err, data) {
       if (err) {
         console.log(err);
       } else {
@@ -142,11 +178,11 @@ app.post("/search", function (req, res) {
 });
 
 //SHOW
-app.get("/search", function (req, res) {
+app.get("/search", isLoggedIn, function (req, res) {
   res.render("search");
 });
 
-app.get("/view/:id", function (req, res) {
+app.get("/view/:id", isLoggedIn, function (req, res) {
   //console.log(req.params.id);
   Forum.findById(req.params.id, function (err, data) {
     if (err) {
@@ -160,7 +196,7 @@ app.get("/view/:id", function (req, res) {
   });
 });
 
-app.get("/image/:filename", (req, res) => {
+app.get("/image/:filename", isLoggedIn, (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     // Check if file
     if (!file || file.length === 0) {
@@ -180,8 +216,52 @@ app.get("/image/:filename", (req, res) => {
   });
 });
 
-app.get("/cancel", function (req, res) {
+app.get("/cancel", isLoggedIn, function (req, res) {
   res.render("cancel");
+});
+
+//LogIn & REGISTER
+app.get("/loginregister", function (req, res) {
+  res.render("loginregister");
+});
+
+//handle SIGN UP
+app.post("/register", function (req, res) {
+  User.register(
+    new User({ username: req.body.username, uniqueid: req.body.uniqueid }),
+    req.body.password,
+    function (err, user) {
+      if (err) {
+        res.render("loginregister");
+        console.log(err);
+      } else {
+        passport.authenticate("local")(req, res, function () {
+          res.redirect("/");
+        });
+      }
+    }
+  );
+});
+
+//SIGN IN
+// app.get("/login", function (reqq, res) {
+//   res.render("login");
+// });
+
+//SIGN IN POST
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/loginregister",
+  }),
+  function (req, res) {}
+);
+
+//LOGOUT
+app.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/loginregister");
 });
 
 //Wrong Route

@@ -11,8 +11,7 @@
   class="row text-center justify-content-center"
   style="display: flex; flex-wrap: wrap;"
 >
-  <% datas.forEach(function(data){ %>
-
+  <% datas.forEach(function(data){ if(data.name.id.equals(currentuser._id)) { %>
   <div class="card col-5 mb-5 mr-5 ml-5" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">Application No.: <%= data.fileno %></h5>
@@ -35,8 +34,7 @@
       >
     </div>
   </div>
-  <br />
-  <% }); %>
+  <% } %> <% }); %>
 </div>
 
 <%- include('partials/footer'); %>

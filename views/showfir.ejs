@@ -10,11 +10,10 @@
 
 <div class="container">
   <% datas.forEach(function(data){ %> <%
-  if(data.date.toISOString().slice(0,10) >= from &&
-  data.date.toISOString().slice(0,10) <= to){ %>
+  if(data.date.toISOString().slice(0,10) >= from && data.date.toISOString().slice(0,10) <= to){ %>
   <div class="list-group list-group-horizontal-sm row">
     <div class="list-group-item col-sm"><%= data.fileno %></div>
-    <div class="list-group-item col-sm"><%= data.name %></div>
+    <div class="list-group-item col-sm"><%= data.name.user %></div>
     <div class="list-group-item col-sm">
       <%= data.date.toISOString().slice(0,10) %>
     </div>

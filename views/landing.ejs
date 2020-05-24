@@ -1,62 +1,77 @@
 <%- include ('partials/header'); %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-2">
-      <img
-        class="img-responsive pt-2"
-        style="width: 10em; height: 6em;"
-        src="firgenlogo.jpg"
-        alt="No"
-      />
-    </div>
-    <div class="col-sm-1 vl"></div>
-    <div class="col-sm-9 head">
-      <h4>ONLINE FIR GENERATOR</h4>
-      <p>Department Of Complaint</p>
-    </div>
-  </div>
-</div>
-
-<hr class="mt-0 mb-1" />
-
-<nav
-  class="navbar navbar-expand-lg navbar-light sec-nav"
-  style="background-color: #f3e3ae96;"
+<div
+  style="
+    background: radial-gradient(
+        farthest-side at bottom left,
+        rgba(255, 0, 255, 0.637),
+        transparent
+      ),
+      radial-gradient(
+        farthest-corner at bottom right,
+        rgba(252, 38, 38, 0.76),
+        transparent 1200px
+      );
+    height: 90%;
+  "
 >
-  <a class="nav-link" href="#">About Us</a>
-  <!-- <a class="nav-link" href="/my">My Dashboard</a> -->
-  <!-- <a class="nav-link" href="#">Downloads</a> -->
-  <a class="nav-link" href="#">Help</a>
-  <a class="nav-link" href="#">Frequently Asked Questions</a>
-  <a class="nav-link" href="#">Contact & Support</a>
-</nav>
-<br />
-
-<div class="container sv">
-  <div class="row">
-    <div class="col-sm-6">
-      <a class="btn btn-outline-dark btn-lg btn-block fm" href="/apply"
-        >Apply Online</a
-      >
-    </div>
-    <div class="col-sm-6">
-      <a class="btn btn-outline-dark btn-lg btn-block fm" href="/my"
-        >My Dashboard</a
-      >
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <img
+          class="img-responsive pt-2"
+          style="width: 10em; height: 6em;"
+          src="firgenlogo.jpg"
+          alt="No"
+        />
+      </div>
+      <div class="col-sm-1 vl"></div>
+      <div class="col-sm-9 head">
+        <h4>ONLINE FIR GENERATOR</h4>
+        <p>Department Of Complaint</p>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <a class="btn btn-outline-dark btn-lg btn-block fm" href="/search"
-        >Search FIR</a
-      >
+
+  <hr class="mt-0 mb-1" />
+  <nav
+    class="navbar navbar-expand-lg navbar-light sec-nav"
+    style="background-color: #f3e3ae96;"
+  >
+    <a class="nav-link" href="#">About Us</a>
+    <!-- <a class="nav-link" href="/my">My Dashboard</a> -->
+    <!-- <a class="nav-link" href="#">Downloads</a> -->
+    <a class="nav-link" href="#">Help</a>
+    <a class="nav-link" href="#">Frequently Asked Questions</a>
+    <a class="nav-link" href="#">Contact & Support</a>
+  </nav>
+  <br />
+  <div class="container sv">
+    <div class="row">
+      <div class="col-sm-6">
+        <a class="btn btn-outline-dark btn-lg btn-block fm" href="/apply"
+          >Apply Online</a
+        >
+      </div>
+      <div class="col-sm-6">
+        <a class="btn btn-outline-dark btn-lg btn-block fm" href="/my"
+          >My Dashboard</a
+        >
+      </div>
     </div>
-    <div class="col-sm-6">
-      <a class="btn btn-outline-dark btn-lg btn-block fm" href="/cancel"
-        >Cancel Application</a
-      >
+    <div class="row">
+      <div class="col-sm-6">
+        <a class="btn btn-outline-dark btn-lg btn-block fm" href="/search"
+          >Search FIR</a
+        >
+      </div>
+      <div class="col-sm-6">
+        <a class="btn btn-outline-dark btn-lg btn-block fm" href="/cancel"
+          >Cancel Application</a
+        >
+      </div>
     </div>
   </div>
 </div>
+
 <%- include ('partials/footer'); %>
