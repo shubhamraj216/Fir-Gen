@@ -30,8 +30,9 @@
   margin-bottom: 2em;
 }
 body {
-  background: #12f35db4;
+  background: linear-gradient(to bottom, #12f35db4, rgb(240, 241, 149));
   font-family: sans-serif;
+  
 }
 
 /* Chrome, Safari, Edge */
