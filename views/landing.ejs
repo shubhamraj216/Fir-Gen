@@ -2,19 +2,23 @@
 
 <div
   style="
-    background: radial-gradient(
-        farthest-side at bottom left,
-        rgba(255, 0, 255, 0.637),
-        transparent
-      ),
-      radial-gradient(
-        farthest-corner at bottom right,
-        rgba(252, 38, 38, 0.76),
-        transparent 1200px
-      );
-    height: 90%;
+    background: url('6.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 89.3%;
   "
 >
+  <div>
+    <% if(success&&success.length>0){ %>
+    <div class="alert alert-success" role="alert">
+      <%=success%>
+    </div>
+    <% } if(error&&error.length>0){ %>
+    <div class="alert alert-danger" role="alert">
+      <%=error%>
+    </div>
+    <% } %>
+  </div>
   <div class="container">
     <div class="row">
       <div class="col-sm-2">
