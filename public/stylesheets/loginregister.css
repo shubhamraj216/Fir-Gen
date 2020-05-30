@@ -4,10 +4,17 @@
   box-sizing: border-box;
 }
 
-
-
 body {
-  background: #f6f5f7;
+  background: radial-gradient(
+      farthest-side at top left,
+      rgba(243, 89, 18, 0.76),
+      transparent
+    ),
+    radial-gradient(
+      farthest-side at bottom right,
+      rgba(105, 252, 91, 0.76),
+      transparent
+    );
   display: flex;
   justify-content: center;
   align-items: center;

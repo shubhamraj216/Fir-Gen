@@ -241,7 +241,7 @@ app.post("/register", function (req, res) {
         return res.redirect("/loginregister");
       } else {
         passport.authenticate("local")(req, res, function () {
-          req.flash("success", "sd");
+          req.flash("success", "Registered Successfully");
           res.redirect("/");
         });
       }
