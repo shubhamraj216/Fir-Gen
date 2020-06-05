@@ -16,7 +16,7 @@ Once you have Node.js and MongoDB installed on your computer,
 
 1. Clone the project to your computer by running `git clone https://github.com/shubhamraj216/Fir-Gen` on your Git terminal.
 2. In the directory of the folder `Fir-Gen` containing the files of the repositiory, open up the terminal and run `npm install`
-3. Once installation is complete, run `npm start` on the same terminal.
+3. Once installation is complete, run `node app.js` on the same terminal.
 4. Open your web browser and visit the address `localhost:3000`.
 5. Sign up to use the app!
 
